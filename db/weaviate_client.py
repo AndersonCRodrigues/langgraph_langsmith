@@ -13,9 +13,18 @@ class AnsiColors:
 
 class ColoredFormatter(logging.Formatter):
     FORMATS = {
-        logging.INFO: f"{AnsiColors.GREEN}%(asctime)s - %(levelname)s - %(message)s{AnsiColors.RESET}",
-        logging.ERROR: f"{AnsiColors.RED}%(asctime)s - %(levelname)s - %(message)s{AnsiColors.RESET}",
-        logging.WARNING: f"{AnsiColors.YELLOW}%(asctime)s - %(levelname)s - %(message)s{AnsiColors.RESET}",
+        logging.INFO: (
+            f"{AnsiColors.GREEN}%(asctime)s - %(levelname)s - %(message)s"
+            f"{AnsiColors.RESET}"
+        ),
+        logging.ERROR: (
+            f"{AnsiColors.RED}%(asctime)s - %(levelname)s - %(message)s"
+            f"{AnsiColors.RESET}"
+        ),
+        logging.WARNING: (
+            f"{AnsiColors.YELLOW}%(asctime)s - %(levelname)s - %(message)s"
+            f"{AnsiColors.RESET}"
+        ),
         logging.DEBUG: "%(asctime)s - %(levelname)s - %(message)s",
     }
 
@@ -69,7 +78,9 @@ class WeaviateConnection:
             if self.is_connected():
                 logging.info("Conectado com sucesso!")
             else:
-                raise ConnectionError("Falha ao estabelecer conexao com Weaviate.")
+                raise ConnectionError(
+                    "Falha ao estabelecer conexao com Weaviate."
+                )
         except ConnectionError as e:
             logging.error(f"Erro de conexao: {e}")
             logging.info("Verifique se o Weaviate esta rodando.")
@@ -93,9 +104,7 @@ class WeaviateConnection:
         return self.client and self.client.is_connected()
 
     def get_client(self) -> Optional[weaviate.WeaviateClient]:
-        if self.is_connected():
-            return self.client
-        return None
+        return self.client if self.is_connected() else None
 
     def __enter__(self):
         self.connect()
@@ -111,10 +120,11 @@ if __name__ == "__main__":
     try:
         conn.connect()
         if conn.is_connected():
-            client = conn.get_client()
-            if client:
+            if client := conn.get_client():
                 info = client.get_meta()
-                logging.info(f"Versao do Weaviate: {info.get('version', 'N/A')}")
+                logging.info(
+                    f"Versao do Weaviate: {info.get('version', 'N/A')}"
+                )
         conn.disconnect()
     except Exception as e:
         logging.error(f"Ocorreu um erro: {e}")
@@ -129,7 +139,10 @@ if __name__ == "__main__":
         logging.info("Conexao fechada automaticamente.")
     except ConnectionError:
         logging.error(
-            "Nao foi possivel conectar ao Weaviate. Verifique se ele esta em execucao."
+            (
+                "Nao foi possivel conectar ao Weaviate. "
+                "Verifique se ele esta em execucao."
+            )
         )
     except Exception as e:
         logging.error(f"Ocorreu um erro: {e}")
