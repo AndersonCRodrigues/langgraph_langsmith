@@ -33,6 +33,7 @@ agent = create_react_agent(
     model=llm_client,
     prompt=system_message,
     tools=tools,
+    debug=True,
 )
 
 
@@ -53,7 +54,7 @@ if __name__ == "__main__":
     result = agent.invoke({"messages": [question1]})
     resposta_final = extrair_resposta_final(result)
     print(resposta_final)
-    
+
     question2 = HumanMessage("Quem descobriu a América?")
     result = agent.invoke({"messages": [question2]})
     resposta_final = extrair_resposta_final(result)
