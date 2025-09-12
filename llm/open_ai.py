@@ -35,6 +35,7 @@ class ColoredFormatter(logging.Formatter):
 handler = logging.StreamHandler()
 handler.setFormatter(ColoredFormatter())
 logging.basicConfig(level=logging.INFO, handlers=[handler])
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 
 class OpenAIClient:
@@ -49,7 +50,7 @@ class OpenAIClient:
             raise ValueError("OPENAI_API_KEY nao foi definida.")
 
     def get_llm_client(self) -> ChatOpenAI:
-        logging.info("Inicializando cliente LLM.")
+        # logging.info("Inicializando cliente LLM.")
         return ChatOpenAI(
             api_key=self.api_key,
             model="gpt-3.5-turbo-0125",
