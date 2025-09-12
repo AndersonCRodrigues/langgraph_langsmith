@@ -14,12 +14,18 @@ ai_client_manager = OpenAIClient()
 llm_client = ai_client_manager.get_llm_client()
 
 
-@tool("somar", description="Soma dois números separados por vírgula.")
-def somar(valores: str) -> str:
-    """Soma dois números separados por vírgula."""
+@tool(
+    "somar",
+    description=(
+        "Soma dois números. O primeiro número é 'a' "
+        "e o segundo é 'b'."
+    ),
+)
+def somar(a: float, b: float) -> str:
+    """Soma dois números, 'a' e 'b'."""
     try:
-        a, b = map(float, valores.split(","))
-        return str(a + b)
+        resultado = a + b
+        return str(resultado)
     except Exception as e:
         return f"Erro ao somar: {e}"
 
@@ -71,6 +77,6 @@ if __name__ == "__main__":
     print(result1["messages"][-1].content)
     print("-" * 20)
 
-    question2 = "Quem descobriu a América?"
+    question2 = "Quanto é a soma de 7.3 e 8.4?"
     result2 = app.invoke({"messages": [HumanMessage(content=question2)]})
     print(result2["messages"][-1].content)
