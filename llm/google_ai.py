@@ -53,7 +53,7 @@ class GoogleAIClient:
             raise ValueError("GOOGLE_API_KEY nao foi definida.")
 
     def get_llm_client(self) -> ChatGoogleGenerativeAI:
-        logging.info("Inicializando cliente LLM.")
+        # logging.info("Inicializando cliente LLM.")
         return ChatGoogleGenerativeAI(
             google_api_key=self.api_key,
             model="gemini-2.5-flash-lite",
