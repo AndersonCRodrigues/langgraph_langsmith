@@ -44,17 +44,15 @@ class OpenAIClient:
         self.api_key = os.getenv("OPENAI_API_KEY")
 
         if not self.api_key:
-            logging.error(
-                "A variavel de ambiente OPENAI_API_KEY nao foi definida."
-            )
+            logging.error("A variavel de ambiente OPENAI_API_KEY nao foi definida.")
             raise ValueError("OPENAI_API_KEY nao foi definida.")
 
-    def get_llm_client(self) -> ChatOpenAI:
+    def get_llm_client(self, model: str = "gpt-3.5-turbo-0125") -> ChatOpenAI:
         # logging.info("Inicializando cliente LLM.")
         return ChatOpenAI(
             api_key=self.api_key,
-            model="gpt-3.5-turbo-0125",
-            temperature=0,
+            model=model,
+            # temperature=0,
             max_tokens=2048,
         )
 
