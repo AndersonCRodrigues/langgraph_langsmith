@@ -10,6 +10,7 @@ cachetools==5.5.2
 certifi==2025.8.3
 cffi==2.0.0
 charset-normalizer==3.4.3
+click==8.2.1
 cryptography==45.0.7
 dataclasses-json==0.6.7
 deprecation==2.1.0
@@ -37,6 +38,7 @@ langchain-google-genai==2.1.10
 langchain-text-splitters==0.3.11
 langgraph==0.6.7
 langgraph-checkpoint==2.1.1
+langgraph-cli==0.1.54
 langgraph-prebuilt==0.6.4
 langgraph-sdk==0.2.6
 langsmith==0.4.27
