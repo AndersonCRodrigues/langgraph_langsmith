@@ -21,3 +21,5 @@ pip-wheel-metadata/
 .pyright/
 .idea/
 *.iml
+
+.langgraph_api
